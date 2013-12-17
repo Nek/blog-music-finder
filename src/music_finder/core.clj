@@ -1,9 +1,8 @@
 (ns music-finder.core
   (:require [cheshire.core :refer :all]
             [org.httpkit.client :as http]
-            [org.httpkit.server :as serv]
-            [monger.core :as mg])
-  (:import [com.mongodb MongoOptions ServerAddress]))
+            [org.httpkit.server :as serv]))
+
 (use '[clojure.java.shell :only [sh]])
 
 (def client_id "a454bbc3e7c73dd307130edc1e2bed00")
