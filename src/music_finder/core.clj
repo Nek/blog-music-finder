@@ -11,7 +11,10 @@
 
 (defn make_player [id] (str "<iframe width=\"100%\" height=\"166\" scrolling=\"no\" frameborder=\"no\" src=\"https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/" id  "&amp;color=ff6600&amp;auto_play=false&amp;show_artwork=true\"></iframe>"))
 
-(def ids (let [names ["warp-records" "stonesthrow"]]
+(defn make_a [track] (str "<a href=\"" (:url track) "\" class=\"stratus\">" (:title track) "</a>"))
+
+
+(def tracks (let [names ["warp-records" "stonesthrow"]]
     (->>
      (map mk_request_url names)
      (map http/get)
@@ -21,13 +24,17 @@
      (map (fn [t] ( sort #(not ( compare (:created_at %1) (:created_at %2))) t)))
      (map #(take 10 %))
      (mapcat  #(if (sequential? %) % [%])) ;; one level flatten
-     (map :id)
+     (map (fn [track] (hash-map :url (:permalink_url track) :title (:title track))))
      )))
 
 (defn app [req]
   {:status  200
    :headers {"Content-Type" "text/html"}
-   :body    (str  "<!DOCTYPE! html><http><head></head><body>" (reduce str (map make_player ids)) "</body></http>")})
+   :body    (str  "<!DOCTYPE! html><html><head><script type=\"text/javascript\" src=\"http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js\"></script><script type=\"text/javascript\" src=\"http://stratus.sc/stratus.js\"></script></head><body>" (reduce str (map make_a ids)) "<script type=\"text/javascript\">
+  $(document).ready(function(){
+    $.stratus({links: 'http://soundcloud.com/qotsa'});
+  });
+</script></body></html>")})
 
 (def stop-server (serv/run-server app {:port 8080}))
 
