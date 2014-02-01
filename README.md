@@ -1,4 +1,4 @@
-# A little Clojure + LightTable + interactive programming tutorial
+# A little Clojure + Light Table + interactive programming tutorial
 
 1. Clone or download the project. 
 2. Open core.clj with LightTable.
