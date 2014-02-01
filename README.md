@@ -1,13 +1,5 @@
-# music-finder
+# A little Clojure + LightTable + interactive programming tutorial
 
-A Clojure library designed to ... well, that part is up to you.
-
-## Usage
-
-FIXME
-
-## License
-
-Copyright © 2013 FIXME
-
-Distributed under the Eclipse Public License, the same as Clojure.
+1. Clone or download the project. 
+2. Open core.clj with LightTable.
+3. Follow the instructions.
